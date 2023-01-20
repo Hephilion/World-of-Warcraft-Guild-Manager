@@ -1,0 +1,29 @@
+#select * from CHARACTERS where CHAR_class='Druid' ; #and CHAR_race='Human';
+CREATE TEMPORARY TABLE TempTable1 (
+	`CHAR_name` VARCHAR(255) NOT NULL,
+	`CHAR_class` VARCHAR(255) NULL,
+	`CHAR_race` VARCHAR(255) NULL,
+	`CHAR_AP` INT NULL,
+	`CHAR_role` VARCHAR(255) NULL,
+	`CHAR_level` INT NULL,
+	`CHAR_prof1` VARCHAR(255) NULL,
+	`CHAR_prof2` VARCHAR(255) NULL,
+	`CHAR_GS` INT NULL);
+INSERT INTO TempTable1 select * from CHARACTERS where CHAR_class='Druid' ;
+CREATE TEMPORARY TABLE TempTable2 (
+	`CHAR_name` VARCHAR(255) NOT NULL,
+	`CHAR_class` VARCHAR(255) NULL,
+	`CHAR_race` VARCHAR(255) NULL,
+	`CHAR_AP` INT NULL,
+	`CHAR_role` VARCHAR(255) NULL,
+	`CHAR_level` INT NULL,
+	`CHAR_prof1` VARCHAR(255) NULL,
+	`CHAR_prof2` VARCHAR(255) NULL,
+	`CHAR_GS` INT NULL);
+INSERT INTO TempTable2 select * from CHARACTERS ;
+SELECT * FROM TempTable2 WHERE CHAR_name NOT IN (SELECT CHAR_name FROM TempTable1);
+
+##
+SELECT CHAR_class FROM CHARACTERS where CHAR_name='Esperta';
+
+SELECT CHAR_name FROM CHARACTERS where CHAR_class='Paladin';

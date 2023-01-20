@@ -1,0 +1,9 @@
+CREATE DEFINER=`ist176180`@`%` PROCEDURE `removeMember`( IN Rem_name VARCHAR(255))
+BEGIN
+		SET SQL_SAFE_UPDATES = 0;
+        DELETE FROM GBelongs WHERE CHAR_name=Rem_name;
+        DELETE FROM CHARACTERS WHERE CHAR_name=Rem_name; 
+		
+        SET SQL_SAFE_UPDATES = 1;
+		
+END

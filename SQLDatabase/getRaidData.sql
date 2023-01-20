@@ -1,0 +1,5 @@
+CREATE DEFINER=`ist176180`@`%` PROCEDURE `getRaidData`()
+BEGIN
+	SELECT DR_name, DR_nbosses
+    FROM DR;
+END

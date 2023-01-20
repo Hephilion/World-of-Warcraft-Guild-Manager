@@ -1,0 +1,52 @@
+CREATE DEFINER=`ist176180`@`%` PROCEDURE `filterMemberList`( IN isTank BOOL,isDPS BOOL, isHealer BOOL,isWarrior BOOL, isPaladin BOOL, isHunter BOOL, isRogue BOOL, isPriest BOOL, isDK BOOL, isShaman BOOL, isMage BOOL, isWarlock BOOL ,isDruid BOOL,GSTag INT)
+BEGIN
+	DROP TABLE IF EXISTS `TEMPML1` CASCADE;
+	DROP TABLE IF EXISTS `TEMPML2` CASCADE;
+    DROP TABLE IF EXISTS `TEMPML3` CASCADE;
+    DROP TABLE IF EXISTS `TEMPML4` CASCADE;
+	
+	
+	CREATE TABLE TEMPML1 
+    (`CHAR_name` VARCHAR(255) NOT NULL,
+	`CHAR_race` VARCHAR(255) NULL,
+	`CHAR_class` VARCHAR(255) NULL,
+	`CHAR_role` VARCHAR(255) NULL,
+	`CHAR_GS` INT NULL);
+    CALL filterGS(GSTag);
+   
+	CREATE TABLE TEMPML2
+    (`CHAR_name` VARCHAR(255) NOT NULL,
+	`CHAR_race` VARCHAR(255) NULL,
+	`CHAR_class` VARCHAR(255) NULL,
+	`CHAR_role` VARCHAR(255) NULL,
+	`CHAR_GS` INT NULL);
+	CALL filterRole(isTank, isDPS, isHealer);
+
+    CREATE TABLE TEMPML3
+    (`CHAR_name` VARCHAR(255) NOT NULL,
+	`CHAR_race` VARCHAR(255) NULL,
+	`CHAR_class` VARCHAR(255) NULL,
+	`CHAR_role` VARCHAR(255) NULL,
+	`CHAR_GS` INT NULL);
+    CALL filterClass(isWarrior, isPaladin, isHunter, isRogue, isPriest, isDK, isShaman, isMage, isWarlock,isDruid);
+    
+    CREATE TABLE TEMPML4
+    (`CHAR_name` VARCHAR(255) NOT NULL,
+	`CHAR_race` VARCHAR(255) NULL,
+	`CHAR_class` VARCHAR(255) NULL,
+	`CHAR_role` VARCHAR(255) NULL,
+	`CHAR_GS` INT NULL);
+    
+    INSERT INTO TEMPML4
+    SELECT * 
+	FROM  TEMPML1
+	NATURAL JOIN TEMPML2;
+    
+    SELECT * 
+	FROM  TEMPML4
+	NATURAL JOIN TEMPML3;
+    
+
+    
+    
+END
